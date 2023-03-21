@@ -8,7 +8,9 @@ This project focuses on creating an authentication setup following client and se
 ## Usage
 Start by installing the necessary dependances
 
-```Install the necessary dependencies```
+```
+pip install -r requirements.txt
+```
 
 Then run:
 ```
