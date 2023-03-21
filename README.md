@@ -38,5 +38,5 @@ This will start the server and client applications. The server will listen on lo
 
 **Use a more secure prime and think about storage options for the public information**
 
-## Conclusion
+
 Overall, this project was a great opportunity for me to work with gRPC and Protobuf, which were both completely new to me. This project was not only interesting but also helped me brush up on concepts I haven't worked with in a while.
