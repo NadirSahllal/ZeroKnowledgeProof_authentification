@@ -1,3 +1,5 @@
+import sys
+sys.path.append('protobuf')
 import grpc
 import protobuf_pb2
 import protobuf_pb2_grpc
@@ -7,13 +9,15 @@ x = 122
 prover = Prover(x)
 
 def run():
-    with grpc.insecure_channel('localhost:50051') as channel:
+    #to test on local jost the channel will need to be changed to local host
+    with grpc.insecure_channel('grpc-server:8000') as channel: 
         stub = protobuf_pb2_grpc.AuthStub(channel)
         register_request = protobuf_pb2.RegisterRequest(user='testuser', y1=prover.y1, y2=prover.y2)
         register_response = stub.Register(register_request)
-        print('Registered user')
+        print('Registration successful ')
         r1,r2 = prover.generate_commit()
         # legit authentication
+        print('Commitment Step ')
         challenge_request = protobuf_pb2.AuthenticationChallengeRequest(user='testuser', r1=r1, r2=r2)
         challenge_response = stub.CreateAuthenticationChallenge(challenge_request)
         c = challenge_response.c

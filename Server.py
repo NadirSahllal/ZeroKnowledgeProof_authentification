@@ -1,3 +1,5 @@
+import sys
+sys.path.append('protobuf')
 import grpc
 from concurrent import futures
 import protobuf_pb2
@@ -31,14 +33,12 @@ class AuthService(protobuf_pb2_grpc.AuthServicer):
         return response
 
     def VerifyAuthentication(self, request, context):
-        print('we here')
         session_id =  request.auth_id
         session = self.sessions[session_id]
         s = request.s
-
-        print('did we get here')
+        print('Response Step')
         if self.verifier.verify(session['r1'], session['r2'], s):
-            print('did we get here')
+            print('Successful authentication')
             return protobuf_pb2.AuthenticationAnswerResponse(session_id=session_id)
         else:
             context.set_details('Authentication failed')
@@ -48,7 +48,7 @@ class AuthService(protobuf_pb2_grpc.AuthServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     protobuf_pb2_grpc.add_AuthServicer_to_server(AuthService(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:8000')
     server.start()
     print("Server started")
     server.wait_for_termination()

@@ -1,0 +1,5 @@
+ecdsa==0.18.0
+grpcio-tools==1.51.3
+grpcio==1.51.3
+protobuf==4.22.1
+pycryptodome==3.17

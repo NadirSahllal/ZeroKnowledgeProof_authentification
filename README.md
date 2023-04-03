@@ -11,8 +11,26 @@ Start by installing the necessary dependances
 ```
 pip install -r requirements.txt
 ```
-
+to run the set up using Docker:
+ ```
+   docker build -t grpc-client -f Dockerfile.client . 
+   docker build -t grpc-server -f Dockerfile.server .
+```
 Then run:
+```
+  docker-compose up   
+```
+while to run the server and client locally a change is needed in line 13 of the client.py file:
+replace:
+```
+ grpc.insecure_channel('grpc-server:8000') as channel: 
+```
+with:
+```
+ with grpc.insecure_channel('localhost:8000') as channel: 
+```
+
+ making the previous change, run :
 ```
   python Server.py
 ```
